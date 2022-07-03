@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-<<<<<<< HEAD
 import { StyledLink } from '../components/UI/StyledLink';
 import { Layout } from '../components/Layout/Layout';
 import { HeroSection } from '../components/HeroSection/HeroSection';
@@ -9,28 +8,10 @@ import { HeroSection } from '../components/HeroSection/HeroSection';
 const IndexPage = () => {
 	const modelClasess =
 		'bg-on-background text-background py-1 px-2 font-semibold border-2 border-on-surface hover:bg-background hover:text-on-background hover:border-2 duration-200 ease-in-out text-center';
-=======
-import { Layout } from '../components/Layout/Layout';
-import { HeroSection } from '../components/HeroSection/HeroSection';
-import { useFetchImagesFromLD } from '../hooks/useFetchImagesFromLD';
-
-const IndexPage = () => {
-	const prompt = 'stop sign';
-
-	// const resp = useFetchImagesFromLD({
-	// 	prompt,
-	// 	stepsNum: 45,
-	// 	width: 256,
-	// 	height: 256,
-	// 	imagesNum: 2,
-	// 	diversityScale: 5,
-	// });
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 
 	return (
 		<Layout>
 			<HeroSection />
-<<<<<<< HEAD
 			<section className="p-5 flex justify-center gap-5 items-center">
 				{/* <img src={``} alt="" /> TODO: screenshot from working application */}
 				<div className="w-1/2 h-64 bg-red-500 flex justify-center items-center">
@@ -74,8 +55,6 @@ const IndexPage = () => {
 					<StyledLink to="create">creating!</StyledLink>
 				</p>
 			</section>
-=======
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 		</Layout>
 	);
 };

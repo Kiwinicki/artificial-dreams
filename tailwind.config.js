@@ -1,26 +1,16 @@
-<<<<<<< HEAD
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-=======
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 const backgroundRGB = '28,28,28';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
-<<<<<<< HEAD
 		screens: {
 			xs: '320px',
 			...defaultTheme.screens,
 		},
 		extend: {
-=======
-		extend: {
-			screens: {
-				xs: '320px',
-			},
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 			colors: {
 				background: `rgb(${backgroundRGB})`,
 				'on-background': 'white',
@@ -39,7 +29,6 @@ module.exports = {
 			backgroundImage: {
 				'hero-section': `linear-gradient(180deg, rgba(${backgroundRGB},1) 3%, rgba(0,0,0,0) 50%, rgba(${backgroundRGB},1) 97%)`,
 			},
-<<<<<<< HEAD
 			keyframes: {
 				'bounce-horizontal': {
 					'0%, 100%': {
@@ -55,8 +44,6 @@ module.exports = {
 			animation: {
 				'bounce-horizontal': 'bounce-horizontal 1s infinite',
 			},
-=======
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 		},
 	},
 	plugins: [],

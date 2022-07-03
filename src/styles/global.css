@@ -12,7 +12,6 @@
 		@apply text-on-background;
 		@apply overflow-x-hidden;
 	}
-<<<<<<< HEAD
 
 	html,
 	body,
@@ -22,6 +21,4 @@
 		@apply flex;
 		@apply flex-col;
 	}
-=======
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 }

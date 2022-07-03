@@ -1,7 +1,6 @@
 # TODO:
 
 - [ ] add screenshot image from working application on IndexPage
-- [ ] add generation result image from each model as background on CreatePage
 - [ ] users, accounts and auth (redux/firebase)
 - [ ] `/create` route and all generation models
 - [ ] one API for all generation models

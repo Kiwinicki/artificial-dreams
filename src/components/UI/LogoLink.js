@@ -8,11 +8,7 @@ export const LogoLink = () => (
 		<img
 			src={logoWithText}
 			alt={`${siteMetadata.title} logo`}
-<<<<<<< HEAD
 			className="w-32 xs:w-36"
-=======
-			className="w-40"
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 		/>
 	</Link>
 );

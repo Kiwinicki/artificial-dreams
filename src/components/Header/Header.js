@@ -2,48 +2,29 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { siteMetadata } from '../../../gatsby-config';
 import { LogoLink } from '../UI/LogoLink';
-<<<<<<< HEAD
 import { SlidingMenu } from './SlidingMenu';
-=======
-import { SlidingMenu } from './SlidingMenu/SlidingMenu';
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 import { useToggle } from '../../hooks/useToggle';
 
 export const Header = () => {
 	const [isMenuOpen, toggleMenu] = useToggle(false);
 
 	return (
-<<<<<<< HEAD
 		<header className="relative grid sm:grid-cols-3 grid-flow-col auto-cols-auto p-5 justify-between bg-background">
-=======
-		<header className="relative grid sm:grid-cols-3 grid-cols-2 p-5 justify-between bg-background">
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 			<div>
 				<LogoLink />
 				<h1 className="sr-only">{siteMetadata.title}</h1>
 			</div>
-<<<<<<< HEAD
 			{/* smaller screens */}
 			<SlidingMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 			<button onClick={toggleMenu} className="sm:hidden justify-self-end">
 				<MenuIcon />
 			</button>
-=======
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 			{/* bigger screens */}
 			<nav className="hidden sm:flex gap-16 justify-self-center">
 				<HeaderLink to="/">Home</HeaderLink>
 				<HeaderLink to="/create">Create</HeaderLink>
 				<HeaderLink to="/tips">Tips</HeaderLink>
 			</nav>
-<<<<<<< HEAD
-=======
-			{/* smaller screens */}
-			<SlidingMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-			<button onClick={toggleMenu} className="sm:hidden justify-self-end">
-				<MenuIcon />
-			</button>
->>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
 		</header>
 	);
 };

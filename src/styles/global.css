@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	html {
+		@apply overflow-x-hidden;
+	}
+
+	body {
+		@apply bg-background;
+		@apply text-on-background;
+		@apply overflow-x-hidden;
+	}
+<<<<<<< HEAD
+
+	html,
+	body,
+	#gatsby-focus-wrapper,
+	#__gatsby {
+		@apply min-h-screen;
+		@apply flex;
+		@apply flex-col;
+	}
+=======
+>>>>>>> c1e9c44 (created CreatePage, TODO: add invidual bg images for all models)
+}

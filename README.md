@@ -5,6 +5,7 @@
 - [ ] `/create` route and all generation models
 - [ ] one API for all generation models
 - [ ] 404 page
+- [ ] input range styles
 
 ## 🚀 Quick start
 

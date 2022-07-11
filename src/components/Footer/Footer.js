@@ -20,7 +20,7 @@ export const Footer = () => {
 const InstagramIcon = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		className="w-5 h-5 md:h-6 md:w-6 hover:scale-105 duration-150"
+		className="w-5 h-5 sm:h-6 sm:w-6 hover:scale-105 duration-150"
 		fill="currentColor"
 		viewBox="0 0 16 16"
 	>
@@ -39,7 +39,7 @@ const GoTopButton = () => (
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			className="h-6 w-6 md:h-7 md:w-7 hover:scale-105 duration-150"
+			className="h-6 w-6 sm:h-7 sm:w-7 hover:scale-105 duration-150"
 			fill="none"
 			viewBox="0 0 24 24"
 			stroke="currentColor"

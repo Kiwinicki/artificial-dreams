@@ -25,6 +25,8 @@ module.exports = {
 				'secondary-dark': 'blue',
 				'secondary-light': 'yellow',
 				'on-secondary': 'black',
+				warning: 'rgb(245 158 11)',
+				error: 'rgb(220 38 38)',
 			},
 			backgroundImage: {
 				'hero-section': `linear-gradient(180deg, rgba(${backgroundRGB},1) 3%, rgba(0,0,0,0) 50%, rgba(${backgroundRGB},1) 97%)`,
@@ -38,6 +40,14 @@ module.exports = {
 					'50%': {
 						transform: 'translateX(25%)',
 						'animation-timing-function': 'cubic-bezier(0.8, 0, 1, 1)',
+					},
+				},
+				rotate: {
+					'0%': {
+						transform: 'rotate(0deg)',
+					},
+					'100%': {
+						transform: 'rotate(360deg)',
 					},
 				},
 			},

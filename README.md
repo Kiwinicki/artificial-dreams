@@ -6,6 +6,8 @@
 - [ ] one API for all generation models
 - [ ] 404 page
 - [ ] input range styles
+- [ ] keywords list (firebase?)
+- [ ] lightbox
 
 ## 🚀 Quick start
 

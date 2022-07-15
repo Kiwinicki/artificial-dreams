@@ -12,7 +12,7 @@ const IndexPage = () => {
 	return (
 		<Layout>
 			<HeroSection />
-			<section className="p-5 flex justify-center gap-5 items-center">
+			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				{/* <img src={``} alt="" /> TODO: screenshot from working application */}
 				<div className="w-1/2 h-64 bg-red-500 flex justify-center items-center">
 					placeholder image
@@ -20,7 +20,7 @@ const IndexPage = () => {
 				Create your own artworks and share or print it. You can use different
 				styles and set many other options.
 			</section>
-			<section className="p-5 flex justify-center gap-5 items-center">
+			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				<div className="flex flex-col gap-2">
 					<Link to="/create/latentdiffusion" className={modelClasess}>
 						Latent Diffusion

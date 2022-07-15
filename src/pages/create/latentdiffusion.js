@@ -6,6 +6,7 @@ import { Input } from '../../components/UI/Input';
 import { useFetch, states } from '../../hooks/useFetch';
 import { Spinner } from '../../components/UI/Spinner';
 import { Button } from '../../components/UI/Button';
+import { StyledLink } from '../../components/UI/StyledLink';
 
 const LatentDiffusionPage = () => {
 	const defaultValues = {
@@ -21,6 +22,7 @@ const LatentDiffusionPage = () => {
 	const [formData, setFormData] = useState(defaultValues);
 
 	const { register, control, watch, handleSubmit } = useForm({ defaultValues });
+
 	const watchImgCount = watch('imgCount');
 	const watchDiversityScale = watch('diversityScale');
 	const watchWidth = watch('width');
@@ -65,26 +67,29 @@ const LatentDiffusionPage = () => {
 			<h2 className="text-2xl text-center px-5 py-3">
 				Generate images with Latent Diffusion
 			</h2>
-			<div className="flex flex-col sm:flex-row p-5 gap-5 ">
+			<div className="flex flex-col md:flex-row p-5 gap-5 max-w-screen-xl justify-center m-auto">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="flex flex-col gap-4 grow shrink basis-0"
+					className="flex flex-col gap-4 min-w-[min(400px,100%)]"
 				>
 					<label className="flex flex-col gap-1.5">
 						<span>
 							Prompt - try adding increments to your prompt or choose it from
 							keywords list
 						</span>
-						<Input {...inputsProps.prompt} {...register('prompt')} />
+						<Controller
+							control={control}
+							name="prompt"
+							render={({ field }) => (
+								<Input
+									{...inputsProps.prompt}
+									{...field}
+									onChange={(e) => field.onChange(onPromptChange(e))}
+								/>
+							)}
+						/>
 					</label>
 					{/* TODO: keywords list */}
-					{/* <label className="flex flex-col gap-1.5">
-						<span>Choose keywords</span>
-						<select name="keywords" id="">
-							<option value="">a</option>
-							<option value="">b</option>
-						</select>
-					</label> */}
 					<label className="flex flex-col gap-1.5">
 						<span>Steps</span>
 						<Input
@@ -150,8 +155,19 @@ const LatentDiffusionPage = () => {
 						</Button>
 					</div>
 				</form>
-				<div className="grow shrink basis-0">
-					{currentFetchState === states.loading && <Spinner size="lg" />}
+				<div className="flex flex-col gap-5">
+					{currentFetchState === states.loading && (
+						<div className="flex flex-wrap gap-5">
+							{[...Array(formData.imgCount).keys()].map((i) => (
+								<div
+									className="w-64 aspect-square flex justify-center items-center border-2 border-on-background/5 animate-pulse "
+									key={i}
+								>
+									<Spinner size="lg" />
+								</div>
+							))}
+						</div>
+					)}
 					{currentFetchState === states.error && (
 						<p className="text-error">
 							Error while generating images. Check your connection or try later
@@ -160,19 +176,25 @@ const LatentDiffusionPage = () => {
 					{currentFetchState === states.loaded && (
 						<>
 							{console.log(data)}
-							<p className="text-right mb-2">
-								Generated in: {data.avg_durations[0].toFixed(2)} sec
-							</p>
-							<div className="flex flex-wrap gap-5 justify-center">
+							<p>Generated in: {data.avg_durations[0].toFixed(2)} sec</p>
+							<div className="flex flex-wrap gap-5">
 								{data.data[1].map((img, i) => (
 									<img
 										src={img}
 										alt={data.prompt}
-										className="border-2 border-on-background"
+										className="w-64 border-2 border-on-background"
 										key={i}
 									/>
 								))}
 							</div>
+							<p>
+								You liked the result, but it has a low resolution? Enhance it
+								with{' '}
+								<StyledLink to="https://replicate.com/xinntao/esrgan">
+									ESRGAN
+								</StyledLink>{' '}
+								- AI powered online upscaling software
+							</p>
 						</>
 					)}
 				</div>
@@ -183,11 +205,17 @@ const LatentDiffusionPage = () => {
 
 export default LatentDiffusionPage;
 
+const onPromptChange = ({ target: { value } }) => {
+	const matchBackslashes = /[\/]/g;
+	return value.replace(matchBackslashes, '');
+};
+
 const inputsProps = {
 	prompt: {
 		type: 'text',
 		minLength: 1,
 		placeholder: 'E.g. Matte painting of cyberpunk city',
+		required: true,
 	},
 	steps: {
 		type: 'number',

@@ -8,6 +8,8 @@
 - [ ] input range styles
 - [ ] keywords list (firebase?)
 - [ ] lightbox
+- [ ] downloading images
+- [ ] add error boundary
 
 ## 🚀 Quick start
 

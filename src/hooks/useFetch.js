@@ -26,11 +26,11 @@ export const useFetch = ({ url, options, immediate = false }) => {
 						}. Returned informations: ${JSON.stringify(json)}`
 					);
 				}
+				setCurrentState(states.loaded);
 			} catch (err) {
 				setCurrentState(states.error);
 				console.error(err);
 			}
-			setCurrentState(states.loaded);
 		},
 		[url, options]
 	);

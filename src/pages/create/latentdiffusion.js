@@ -9,16 +9,6 @@ import { Button } from '../../components/UI/Button';
 import { StyledLink } from '../../components/UI/StyledLink';
 
 const LatentDiffusionPage = () => {
-	const defaultValues = {
-		prompt: '',
-		styles: [],
-		steps: 45,
-		width: 256,
-		height: 256,
-		imgCount: 2,
-		diversityScale: 5,
-	};
-
 	const [formData, setFormData] = useState(defaultValues);
 
 	const { register, control, watch, handleSubmit } = useForm({ defaultValues });
@@ -40,7 +30,6 @@ const LatentDiffusionPage = () => {
 		diversityScale,
 	}) => {
 		setFormData({ prompt, steps, width, height, imgCount, diversityScale });
-		console.log(formData);
 
 		executeFetch(
 			'https://hf.space/embed/multimodalart/latentdiffusion/+/api/predict/',
@@ -59,7 +48,6 @@ const LatentDiffusionPage = () => {
 				headers: { 'Content-Type': 'application/json' },
 			}
 		);
-		console.log(prompt, steps, width, height, imgCount, diversityScale);
 	};
 
 	return (
@@ -99,29 +87,29 @@ const LatentDiffusionPage = () => {
 					</label>
 					<label className="flex flex-col">
 						<span>Width</span>
-						<Controller
-							control={control}
-							name="width"
-							render={({ field }) => (
-								<div className="flex gap-2">
+						<div className="flex gap-2">
+							<Controller
+								control={control}
+								name="width"
+								render={({ field }) => (
 									<InputArrayRange {...inputsProps.width} {...field} />
-									<span>{watchWidth}</span>
-								</div>
-							)}
-						/>
+								)}
+							/>
+							<span>{watchWidth}</span>
+						</div>
 					</label>
 					<label className="flex flex-col">
 						<span>Height</span>
-						<Controller
-							control={control}
-							name="height"
-							render={({ field }) => (
-								<div className="flex gap-2">
+						<div className="flex gap-2">
+							<Controller
+								control={control}
+								name="height"
+								render={({ field }) => (
 									<InputArrayRange {...inputsProps.width} {...field} />
-									<span>{watchHeight}</span>
-								</div>
-							)}
-						/>
+								)}
+							/>
+							<span>{watchHeight}</span>
+						</div>
 					</label>
 					<label className="flex flex-col">
 						<span>Images - how images you wish to generate waiting</span>
@@ -160,7 +148,7 @@ const LatentDiffusionPage = () => {
 						<div className="flex flex-wrap gap-5">
 							{[...Array(formData.imgCount).keys()].map((i) => (
 								<div
-									className="w-64 aspect-square flex justify-center items-center border-2 border-on-background/5 animate-pulse "
+									className="w-64 aspect-square flex justify-center items-center border-2 border-on-background/5 animate-pulse"
 									key={i}
 								>
 									<Spinner size="lg" />
@@ -175,13 +163,12 @@ const LatentDiffusionPage = () => {
 					)}
 					{currentFetchState === states.loaded && (
 						<>
-							{console.log(data)}
 							<p>Generated in: {data.avg_durations[0].toFixed(2)} sec</p>
 							<div className="flex flex-wrap gap-5">
 								{data.data[1].map((img, i) => (
 									<img
 										src={img}
-										alt={data.prompt}
+										alt={formData.prompt}
 										className="w-64 border-2 border-on-background"
 										key={i}
 									/>
@@ -199,6 +186,14 @@ const LatentDiffusionPage = () => {
 					)}
 				</div>
 			</div>
+			<p className="text-center p-5 pt-0">
+				Model comes from{' '}
+				<StyledLink to="https://huggingface.co/multimodalart">
+					Multimodal AI art
+				</StyledLink>{' '}
+				on Hugging Face. Check his{' '}
+				<StyledLink to="https://multimodal.art/">site</StyledLink> too.
+			</p>
 		</Layout>
 	);
 };
@@ -208,6 +203,16 @@ export default LatentDiffusionPage;
 const onPromptChange = ({ target: { value } }) => {
 	const matchBackslashes = /[\/]/g;
 	return value.replace(matchBackslashes, '');
+};
+
+const defaultValues = {
+	prompt: '',
+	styles: [],
+	steps: 45,
+	width: 256,
+	height: 256,
+	imgCount: 2,
+	diversityScale: 5,
 };
 
 const inputsProps = {
@@ -222,6 +227,7 @@ const inputsProps = {
 		min: 1,
 		max: 50,
 		step: 1,
+		required: true,
 	},
 	width: {
 		stepList: [32, 64, 128, 256],

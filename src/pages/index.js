@@ -4,6 +4,7 @@ import { Link } from 'gatsby';
 import { StyledLink } from '../components/UI/StyledLink';
 import { Layout } from '../components/Layout/Layout';
 import { HeroSection } from '../components/HeroSection/HeroSection';
+import { MODELS } from '../constants';
 
 const IndexPage = () => {
 	const modelClasess =
@@ -22,21 +23,11 @@ const IndexPage = () => {
 			</section>
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				<div className="flex flex-col gap-2">
-					<Link to="/create/latentdiffusion" className={modelClasess}>
-						Latent Diffusion
-					</Link>
-					<Link to="/create/stylegan" className={modelClasess}>
-						StyleGAN XL + CLIP
-					</Link>
-					<Link to="/create/vdiffusion" className={modelClasess}>
-						V-Diffusion
-					</Link>
-					<Link to="/create/vqgan" className={modelClasess}>
-						VQGAN+CLIP (Hypertron v2)
-					</Link>
-					<Link to="/create/rudalle" className={modelClasess}>
-						ruDALLE
-					</Link>
+					{Object.values(MODELS).map(({ name, route }) => (
+						<Link to={route} className={modelClasess}>
+							{name}
+						</Link>
+					))}
 				</div>
 				<div className="flex flex-col gap-4">
 					<p>
@@ -52,7 +43,9 @@ const IndexPage = () => {
 			<section>
 				<p className="p-5 text-center">
 					What are you waiting for? Start{' '}
-					<StyledLink to="create">creating!</StyledLink>
+					<StyledLink internal to="/create">
+						creating!
+					</StyledLink>
 				</p>
 			</section>
 		</Layout>

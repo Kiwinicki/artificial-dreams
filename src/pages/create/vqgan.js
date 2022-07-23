@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout } from '../../components/Layout/Layout';
+import { MainLayout } from '../../components/Layouts/MainLayout';
 import { useForm, Controller } from 'react-hook-form';
 import { states, useFetch } from '../../hooks/useFetch';
 import { Input } from '../../components/UI/Input';
@@ -50,7 +50,7 @@ const VqganPage = () => {
 	};
 
 	return (
-		<Layout>
+		<MainLayout>
 			<h2 className="text-2xl text-center px-5 py-3">
 				Generate images with VQGAN + CLIP
 			</h2>
@@ -179,7 +179,7 @@ const VqganPage = () => {
 				on Hugging Face. Check his{' '}
 				<StyledLink to="https://multimodal.art/">site</StyledLink> too.
 			</p>
-		</Layout>
+		</MainLayout>
 	);
 };
 

@@ -1,27 +1,48 @@
-import React, { useState } from 'react';
-import { Link } from 'gatsby';
-import { Layout } from '../../components/Layout/Layout';
-import { MODELS, MODELS_LINKS } from '../../constants';
+import React from 'react';
+import { Link, graphql, useStaticQuery } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { MainLayout } from '../../components/Layouts/MainLayout';
 import { StyledLink } from '../../components/UI/StyledLink';
 
 const CreatePage = () => {
-	const linkClasess =
-		'flex justify-center items-center aspect-square border-on-background border-2 text-center relative hover:scale-[1.025] duration-150 ease-in-out';
-	const imgClasses =
-		'absolute brightness-50 hover:brightness-[0.4] blur-none hover:blur-sm duration-150 ease-in-out w-full';
-	const pClasses =
-		'font-semibold text-lg z-[1] [&+img]:hover:brightness-[0.4] [&+img]:hover:blur-sm';
+	const { allModelsJson, allModelsLinksJson } = useStaticQuery(graphql`
+		{
+			allModelsLinksJson {
+				nodes {
+					key
+					name
+					url
+				}
+			}
+			allModelsJson {
+				nodes {
+					name
+					route
+					key
+					bgImg {
+						childImageSharp {
+							gatsbyImageData(aspectRatio: 1, formats: AUTO)
+						}
+					}
+				}
+			}
+		}
+	`);
 
 	return (
-		<Layout>
+		<MainLayout>
 			<h2 className="text-center text-xl font-semibold">
 				Choose model for your prompts:
 			</h2>
 			<div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 p-5">
-				{Object.values(MODELS).map(({ route, bgImg, name }) => (
-					<Link to={route} className={linkClasess} key={route}>
+				{allModelsJson.nodes.map(({ route, key, name, bgImg }) => (
+					<Link to={route} className={linkClasess} key={key}>
 						<span className={pClasses}>{name}</span>
-						<img src={bgImg} alt="" className={imgClasses} />
+						<GatsbyImage
+							image={bgImg.childImageSharp.gatsbyImageData}
+							alt=""
+							className={imgClasses}
+						/>
 					</Link>
 				))}
 			</div>
@@ -29,14 +50,21 @@ const CreatePage = () => {
 				Links to other external models:
 			</h2>
 			<div className="flex gap-5 p-5">
-				{MODELS_LINKS.map(({ name, key, url }) => (
+				{allModelsLinksJson.nodes.map(({ name, key, url }) => (
 					<StyledLink to={url} target="_blank" key={key}>
 						{name}
 					</StyledLink>
 				))}
 			</div>
-		</Layout>
+		</MainLayout>
 	);
 };
 
 export default CreatePage;
+
+const linkClasess =
+	'flex justify-center items-center aspect-square border-on-background border-2 text-center relative hover:scale-[1.025] duration-150 ease-in-out';
+const imgClasses =
+	'absolute brightness-50 hover:brightness-[0.4] blur-none hover:blur-sm duration-150 ease-in-out w-full';
+const pClasses =
+	'font-semibold text-lg z-[1] [&+img]:hover:brightness-[0.4] [&+img]:hover:blur-sm';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
+import { MainLayout } from '../components/Layouts/MainLayout';
 import { StyledLink } from '../components/UI/StyledLink';
-import { Layout } from '../components/Layout/Layout';
 import { HeroSection } from '../components/HeroSection/HeroSection';
 import { MODELS } from '../constants';
 
@@ -11,7 +11,7 @@ const IndexPage = () => {
 		'bg-on-background text-background py-1 px-2 font-semibold border-2 border-on-surface hover:bg-background hover:text-on-background hover:border-2 duration-200 ease-in-out text-center';
 
 	return (
-		<Layout>
+		<MainLayout>
 			<HeroSection />
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				{/* <img src={``} alt="" /> TODO: screenshot from working application */}
@@ -48,7 +48,7 @@ const IndexPage = () => {
 					</StyledLink>
 				</p>
 			</section>
-		</Layout>
+		</MainLayout>
 	);
 };
 

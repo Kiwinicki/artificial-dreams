@@ -1,6 +1,6 @@
 import latentDiffusionBg from './images/latent-diffusion-bg.png';
 import vqganBg from './images/vqgan-bg.png';
-import vdiffusionBg from './images/vdiffusion-bg.png';
+import vdiffusionBg from './images/v-diffusion-bg.png';
 
 // from huggingface.co multimodalart
 export const MODELS = Object.freeze({
@@ -120,32 +120,3 @@ export const MODELS = Object.freeze({
 		url: 'https://hf.space/embed/multimodalart/diffusion/+/api/predict/',
 	},
 });
-
-// from replicate.com
-export const MODELS_LINKS = Object.freeze([
-	{
-		key: 'min-dalle',
-		name: 'min(DALL·E)',
-		url: 'https://replicate.com/kuprel/min-dalle',
-	},
-	{
-		key: 'pixray',
-		name: 'Pixray',
-		url: 'https://replicate.com/pixray/text2image',
-	},
-	{
-		key: 'erlich',
-		name: 'Erlich',
-		url: 'https://replicate.com/laion-ai/erlich',
-	},
-	{
-		key: 'arf-svox2',
-		name: 'ARF (Artistic Radiance Fields)',
-		url: 'https://replicate.com/nightmareai/arf-svox2',
-	},
-	{
-		key: 'laionide-v3',
-		name: 'Laionide V3',
-		url: 'https://replicate.com/afiaka87/laionide-v3',
-	},
-]);

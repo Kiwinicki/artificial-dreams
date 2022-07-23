@@ -22,5 +22,12 @@ module.exports = {
 				icon: 'src/images/favicon.png',
 			},
 		},
+		`gatsby-transformer-json`,
+		{
+			resolve: `gatsby-source-filesystem`,
+			options: {
+				path: `./src/data/`,
+			},
+		},
 	],
 };

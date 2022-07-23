@@ -1,0 +1,136 @@
+[
+	{
+		"name": "V-Diffusion",
+		"key": "v-diffusion",
+		"route": "/create/v-diffusion",
+		"bgImg": "../images/v-diffusion-bg.png",
+		"form": {
+			"defaultValues": {
+				"prompt": "",
+				"steps": 40,
+				"imgCount": 2,
+				"weight": 5,
+				"clipGuided": false
+			},
+			"inputs": [
+				{
+					"name": "prompt",
+					"type": "text",
+					"label": "Prompt - try adding increments to your prompt or choose it from keywords list",
+					"placeholder": "Painting of neon forest"
+				},
+				{
+					"name": "steps",
+					"type": "number",
+					"label": "Steps - more steps results better quality images and longer waiting",
+					"min": 1,
+					"max": 80,
+					"step": 1
+				},
+				{
+					"name": "imgCount",
+					"type": "range",
+					"label": "Images - how images you wish to generate",
+					"min": 1,
+					"max": 4,
+					"step": 1
+				},
+				{
+					"name": "weight",
+					"type": "range",
+					"label": "Weight - how closely the image should resemble the prompt",
+					"min": 1,
+					"max": 15,
+					"step": 1
+				},
+				{
+					"name": "clipGuided",
+					"type": "checkbox",
+					"label": "CLIP Guided - improves coherence with complex prompts, makes it slower (with CLIP Guidance only one image is generated)"
+				}
+			],
+			"requestSchema": {
+				"url": "https://hf.space/embed/multimodalart/latentdiffusion/+/api/predict/",
+				"method": "POST",
+				"body": {
+					"data": ["prompt", "steps", "imgCount", "weight", "clipGuided"]
+				},
+				"headers": { "Content-Type": "application/json" }
+			},
+			"responseSchema": {
+				"data": [],
+				"durations": [],
+				"avg_durations": []
+			}
+		}
+	},
+	{
+		"name": "Latent Diffusion",
+		"key": "latent-diffusion",
+		"route": "/create/latent-diffusion",
+		"bgImg": "../images/latent-diffusion-bg.png",
+		"form": {
+			"defaultValues": {
+				"prompt": "",
+				"styles": [],
+				"steps": 45,
+				"width": 256,
+				"height": 256,
+				"imgCount": 2,
+				"diversityScale": 5
+			},
+			"inputs": [
+				{
+					"name": "prompt",
+					"type": "text",
+					"label": "Prompt - try adding increments to your prompt or choose it from keywords list",
+					"placeholder": "Matte painting of cyberpunk city"
+				},
+				{
+					"name": "steps",
+					"type": "number",
+					"label": "Steps - more steps results better quality images and longer waiting",
+					"min": 1,
+					"max": 50,
+					"step": 1
+				},
+				{
+					"name": "width",
+					"type": "stepList",
+					"stepList": [32, 64, 128, 256]
+				},
+				{
+					"name": "height",
+					"type": "stepList",
+					"stepList": [32, 64, 128, 256]
+				},
+				{
+					"name": "imgCount",
+					"type": "range",
+					"min": 1,
+					"max": 4,
+					"step": 1
+				},
+				{
+					"name": "diversityScale",
+					"type": "range",
+					"min": 1,
+					"max": 15,
+					"step": 0.1
+				}
+			],
+			"requestSchema": {
+				"method": "POST",
+				"body": {
+					"data": ["prompt", "steps", "imgCount", "weight", "clipGuided"]
+				},
+				"headers": { "Content-Type": "application/json" }
+			},
+			"responseSchema": {
+				"data": [],
+				"durations": [],
+				"avg_durations": []
+			}
+		}
+	}
+]

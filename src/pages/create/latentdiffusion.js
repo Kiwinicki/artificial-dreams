@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { Layout } from '../../components/Layout/Layout';
+import { MainLayout } from '../../components/Layouts/MainLayout';
 import { InputArrayRange } from '../../components/UI/InputArrayRange';
 import { Input } from '../../components/UI/Input';
 import { useFetch, states } from '../../hooks/useFetch';
@@ -51,7 +51,7 @@ const LatentDiffusionPage = () => {
 	};
 
 	return (
-		<Layout>
+		<MainLayout>
 			<h2 className="text-2xl text-center px-5 py-3">
 				Generate images with Latent Diffusion
 			</h2>
@@ -112,7 +112,7 @@ const LatentDiffusionPage = () => {
 						</div>
 					</label>
 					<label className="flex flex-col">
-						<span>Images - how images you wish to generate waiting</span>
+						<span>Images - how images you wish to generate</span>
 						<div className="flex gap-2">
 							<input
 								{...inputsProps.imgCount}
@@ -194,7 +194,7 @@ const LatentDiffusionPage = () => {
 				on Hugging Face. Check his{' '}
 				<StyledLink to="https://multimodal.art/">site</StyledLink> too.
 			</p>
-		</Layout>
+		</MainLayout>
 	);
 };
 

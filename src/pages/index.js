@@ -1,14 +1,25 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 
 import { MainLayout } from '../components/Layouts/MainLayout';
 import { StyledLink } from '../components/UI/StyledLink';
 import { HeroSection } from '../components/HeroSection/HeroSection';
-import { MODELS } from '../constants';
 
 const IndexPage = () => {
-	const modelClasess =
-		'bg-on-background text-background py-1 px-2 font-semibold border-2 border-on-surface hover:bg-background hover:text-on-background hover:border-2 duration-200 ease-in-out text-center';
+	const {
+		allModelsJson: { nodes },
+	} = useStaticQuery(graphql`
+		{
+			allModelsJson {
+				nodes {
+					name
+					route
+					key
+				}
+			}
+		}
+	`);
 
 	return (
 		<MainLayout>
@@ -23,8 +34,8 @@ const IndexPage = () => {
 			</section>
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				<div className="flex flex-col gap-2">
-					{Object.values(MODELS).map(({ name, route }) => (
-						<Link to={route} className={modelClasess}>
+					{nodes.map(({ name, route, key }) => (
+						<Link to={route} className={modelClasess} key={key}>
 							{name}
 						</Link>
 					))}
@@ -53,6 +64,9 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+
+const modelClasess =
+	'bg-on-background text-background py-1 px-2 font-semibold border-2 border-on-surface hover:bg-background hover:text-on-background hover:border-2 duration-200 ease-in-out text-center';
 
 const ArrowLeft = () => (
 	<svg

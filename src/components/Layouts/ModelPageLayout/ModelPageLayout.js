@@ -1,14 +1,12 @@
-import React, { forwardRef, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { useFetch, states } from '../../hooks/useFetch';
-import { MainLayout } from '../../components/Layouts/MainLayout';
-import { InputArrayRange } from '../../components/UI/InputArrayRange';
-import { Input } from '../../components/UI/Input';
-import { Spinner } from '../../components/UI/Spinner';
-import { Button } from '../../components/UI/Button';
-import { StyledLink } from '../../components/UI/StyledLink';
-import { InputRange } from '../UI/InputRange';
-import { filterObject } from '../../utils';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useFetch, states } from '../../../hooks/useFetch';
+import { MainLayout } from '../MainLayout';
+import { InputFactory } from './InputFactory';
+import { Spinner } from '../../UI/Spinner';
+import { Button } from '../../UI/Button';
+import { StyledLink } from '../../UI/StyledLink';
+import { filterObject } from '../../../utils';
 
 const ModelPageLayout = ({
 	pageContext: {
@@ -31,26 +29,22 @@ const ModelPageLayout = ({
 
 	const [formData, setFormData] = useState(newDefaultValues);
 
-	const { control, watch, handleSubmit } = useForm({
-		defaultValues: newDefaultValues,
-	});
-
 	const { data, currentFetchState, executeFetch } = useFetch({});
 
 	const onSubmit = (data) => {
 		console.log(data, body);
 		console.log(body.data.map((varName) => data[varName]));
 		setFormData(data);
-		executeFetch(url, {
-			method,
-			body: [],
-			headers,
-		});
+		// executeFetch(url, {
+		// 	method,
+		// 	body: [],
+		// 	headers,
+		// });
 	};
 
 	const onError = (err) => {
 		console.error(err);
-		// throw Error(err);
+		throw Error(err);
 	};
 
 	return (
@@ -59,44 +53,13 @@ const ModelPageLayout = ({
 				Generate images with {name}
 			</h2>
 			<div className="flex flex-col md:flex-row p-5 gap-5 max-w-screen-xl justify-center m-auto">
-				<form
-					onSubmit={handleSubmit(onSubmit, onError)}
+				<Form
+					onSubmit={onSubmit}
+					onError={onError}
+					inputs={inputs}
+					defaultValues={defaultValues}
 					className="flex flex-col gap-4 min-w-[min(400px,100%)]"
-				>
-					{inputs.map(({ name, type, label, rules, watched, ...props }) => {
-						const newProps = filterObject(
-							props,
-							([key, value]) => value !== null
-						);
-
-						const watchInput = watch(name);
-
-						return (
-							<label className="flex flex-col gap-1.5" key={name}>
-								<span>{label}</span>
-								<Controller
-									name={name}
-									control={control}
-									rules={rules}
-									render={({ field }) => (
-										<div className="flex gap-3">
-											<CreateInput type={type} {...field} {...newProps} />
-											{watched && <span>{watchInput}</span>}
-										</div>
-									)}
-								/>
-							</label>
-						);
-					})}
-					<div className="flex py-5 gap-5">
-						<Button type="submit" className="grow">
-							Submit
-						</Button>
-						<Button type="reset" className="grow">
-							Clear
-						</Button>
-					</div>
-				</form>
+				/>
 				<div className="flex flex-col gap-5">
 					{currentFetchState === states.loading && (
 						<div className="flex flex-wrap gap-5">
@@ -159,29 +122,35 @@ const onPromptChange = ({ target: { value } }) => {
 	return value.replace(matchBackslashes, '');
 };
 
-const CreateInput = forwardRef(
-	({ type = 'text', valueAs = 'text', ...props }, ref) => {
-		const inputTypes = {
-			text: <Input type="text" className="grow" {...props} ref={ref} />,
-			number: (
-				<Input
-					type="number"
-					{...props}
-					onChange={(e) => props.onChange(Number(e.target.value))}
-					ref={ref}
-				/>
-			),
-			range: (
-				<InputRange
-					{...props}
-					onChange={(e) => props.onChange(Number(e.target.value))}
-					ref={ref}
-				/>
-			),
-			arrayRange: <InputArrayRange {...props} ref={ref} />,
-			checkbox: <input type="checkbox" {...props} ref={ref} />,
-		};
+const Form = ({ defaultValues, inputs, onSubmit, onError, ...rest }) => {
+	const { handleSubmit, register, control, watch } = useForm({ defaultValues });
 
-		return inputTypes[type] || inputTypes.text;
-	}
-);
+	return (
+		<form onSubmit={handleSubmit(onSubmit, onError)} {...rest}>
+			{inputs.map(({ name, type, rules, ...props }) => {
+				const newProps = filterObject(props, ([key, value]) => value !== null);
+
+				return (
+					<InputFactory
+						name={name}
+						type={type}
+						register={register}
+						control={control}
+						rules={rules}
+						watch={watch}
+						{...newProps}
+						key={name}
+					/>
+				);
+			})}
+			<div className="flex py-5 gap-5">
+				<Button type="submit" className="grow">
+					Submit
+				</Button>
+				<Button type="reset" className="grow">
+					Clear
+				</Button>
+			</div>
+		</form>
+	);
+};

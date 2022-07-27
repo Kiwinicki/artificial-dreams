@@ -19,6 +19,7 @@ exports.createPages = async function ({ actions, graphql }) {
 							watched
 							rules {
 								required
+								valueAsNumber
 							}
 						}
 						requestSchema {
@@ -55,7 +56,9 @@ exports.createPages = async function ({ actions, graphql }) {
 		const route = data.route;
 		actions.createPage({
 			path: route,
-			component: require.resolve(`./src/components/Layouts/ModelPageLayout.js`),
+			component: require.resolve(
+				`./src/components/Layouts/ModelPageLayout/ModelPageLayout.js`
+			),
 			context: data,
 		});
 	});

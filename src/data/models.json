@@ -99,14 +99,14 @@
 					"min": 1,
 					"max": 50,
 					"step": 1,
-					"rules": { "required": true }
+					"rules": { "required": true, "valueAsNumber": true }
 				},
 				{
 					"name": "width",
 					"type": "arrayRange",
 					"label": "Width",
 					"watched": true,
-					"stepList": [32, 64, 128, 256],
+					"stepList": ["32", "64", "128", "256"],
 					"rules": { "required": true }
 				},
 				{
@@ -114,7 +114,7 @@
 					"label": "Height",
 					"type": "arrayRange",
 					"watched": true,
-					"stepList": [32, 64, 128, 256],
+					"stepList": ["32", "64", "128", "256"],
 					"rules": { "required": true }
 				},
 				{
@@ -125,7 +125,7 @@
 					"min": 1,
 					"max": 4,
 					"step": 1,
-					"rules": { "required": true }
+					"rules": { "required": true, "valueAsNumber": true }
 				},
 				{
 					"name": "diversityScale",
@@ -135,7 +135,7 @@
 					"min": 1,
 					"max": 15,
 					"step": 0.1,
-					"rules": { "required": true }
+					"rules": { "required": true, "valueAsNumber": true }
 				}
 			],
 			"requestSchema": {

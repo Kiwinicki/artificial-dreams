@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
-export const InputRange = forwardRef((props, ref) => {
-	return <input type="range" {...props} ref={ref} />;
-});
+export const InputRange = ({ name, register, rules, ...rest }) => (
+	<input type="range" {...register(name, rules)} {...rest} />
+);

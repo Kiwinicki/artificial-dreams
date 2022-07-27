@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useFetch, states } from '../../hooks/useFetch';
 import { MainLayout } from '../../components/Layouts/MainLayout';
 import { InputArrayRange } from '../../components/UI/InputArrayRange';
 import { Input } from '../../components/UI/Input';
-import { useFetch, states } from '../../hooks/useFetch';
 import { Spinner } from '../../components/UI/Spinner';
 import { Button } from '../../components/UI/Button';
 import { StyledLink } from '../../components/UI/StyledLink';
+import { InputRange } from '../UI/InputRange';
+import { filterObject } from '../../utils';
 
 const ModelPageLayout = ({
 	pageContext: {
@@ -22,33 +24,33 @@ const ModelPageLayout = ({
 		route,
 	},
 }) => {
-	console.log(id, name, route, key, inputs, defaultValues);
+	const newDefaultValues = filterObject(
+		defaultValues,
+		([key, value]) => value !== null
+	);
 
-	const [formData, setFormData] = useState(defaultValues);
+	const [formData, setFormData] = useState(newDefaultValues);
 
-	const { register, control, watch, handleSubmit } = useForm({ defaultValues });
-
-	const watchImgCount = watch('imgCount');
-	const watchDiversityScale = watch('diversityScale');
-	const watchWidth = watch('width');
-	const watchHeight = watch('height');
+	const { control, watch, handleSubmit } = useForm({
+		defaultValues: newDefaultValues,
+	});
 
 	const { data, currentFetchState, executeFetch } = useFetch({});
 
-	const onSubmit = ({
-		prompt,
-		steps,
-		width,
-		height,
-		imgCount,
-		diversityScale,
-	}) => {
-		setFormData({ prompt, steps, width, height, imgCount, diversityScale });
+	const onSubmit = (data) => {
+		console.log(data, body);
+		console.log(body.data.map((varName) => data[varName]));
+		setFormData(data);
 		executeFetch(url, {
 			method,
-			body: body.data, // TODO: funkcja która zamienia tablicę stringów z JSONa na wartości z formularza
+			body: [],
 			headers,
 		});
+	};
+
+	const onError = (err) => {
+		console.error(err);
+		// throw Error(err);
 	};
 
 	return (
@@ -58,26 +60,34 @@ const ModelPageLayout = ({
 			</h2>
 			<div className="flex flex-col md:flex-row p-5 gap-5 max-w-screen-xl justify-center m-auto">
 				<form
-					onSubmit={handleSubmit(onSubmit)}
+					onSubmit={handleSubmit(onSubmit, onError)}
 					className="flex flex-col gap-4 min-w-[min(400px,100%)]"
 				>
-					{/* <label className="flex flex-col gap-1.5">
-						<span>
-							Prompt - try adding increments to your prompt or choose it from
-							keywords list
-						</span>
-						<Controller
-							control={control}
-							name="prompt"
-							render={({ field }) => (
-								<Input
-									{...inputsProps.prompt}
-									{...field}
-									onChange={(e) => field.onChange(onPromptChange(e))}
+					{inputs.map(({ name, type, label, rules, watched, ...props }) => {
+						const newProps = filterObject(
+							props,
+							([key, value]) => value !== null
+						);
+
+						const watchInput = watch(name);
+
+						return (
+							<label className="flex flex-col gap-1.5" key={name}>
+								<span>{label}</span>
+								<Controller
+									name={name}
+									control={control}
+									rules={rules}
+									render={({ field }) => (
+										<div className="flex gap-3">
+											<CreateInput type={type} {...field} {...newProps} />
+											{watched && <span>{watchInput}</span>}
+										</div>
+									)}
 								/>
-							)}
-						/>
-					</label> */}
+							</label>
+						);
+					})}
 					<div className="flex py-5 gap-5">
 						<Button type="submit" className="grow">
 							Submit
@@ -148,3 +158,30 @@ const onPromptChange = ({ target: { value } }) => {
 	const matchBackslashes = /[\/]/g;
 	return value.replace(matchBackslashes, '');
 };
+
+const CreateInput = forwardRef(
+	({ type = 'text', valueAs = 'text', ...props }, ref) => {
+		const inputTypes = {
+			text: <Input type="text" className="grow" {...props} ref={ref} />,
+			number: (
+				<Input
+					type="number"
+					{...props}
+					onChange={(e) => props.onChange(Number(e.target.value))}
+					ref={ref}
+				/>
+			),
+			range: (
+				<InputRange
+					{...props}
+					onChange={(e) => props.onChange(Number(e.target.value))}
+					ref={ref}
+				/>
+			),
+			arrayRange: <InputArrayRange {...props} ref={ref} />,
+			checkbox: <input type="checkbox" {...props} ref={ref} />,
+		};
+
+		return inputTypes[type] || inputTypes.text;
+	}
+);

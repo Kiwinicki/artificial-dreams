@@ -3,6 +3,9 @@ exports.createPages = async function ({ actions, graphql }) {
 		{
 			allModelsJson {
 				nodes {
+					name
+					route
+					key
 					form {
 						inputs {
 							name
@@ -13,13 +16,10 @@ exports.createPages = async function ({ actions, graphql }) {
 							max
 							step
 							stepList
-						}
-						defaultValues {
-							prompt
-							steps
-							imgCount
-							weight
-							clipGuided
+							watched
+							rules {
+								required
+							}
 						}
 						requestSchema {
 							url
@@ -31,11 +31,21 @@ exports.createPages = async function ({ actions, graphql }) {
 								Content_Type
 							}
 						}
+						responseSchema {
+							duration
+							images
+						}
+						defaultValues {
+							clipGuided
+							diversityScale
+							height
+							imgCount
+							prompt
+							steps
+							weight
+							width
+						}
 					}
-					id
-					key
-					name
-					route
 				}
 			}
 		}

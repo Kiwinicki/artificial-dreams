@@ -33,7 +33,7 @@
 					"name": "imgCount",
 					"type": "range",
 					"label": "Images - how images you wish to generate",
-					"rules": { "required": true },
+					"rules": { "required": true, "valueAsNumber": true },
 					"watched": true,
 					"min": 1,
 					"max": 4,
@@ -43,7 +43,7 @@
 					"name": "weight",
 					"type": "range",
 					"label": "Weight - how closely the image should resemble the prompt",
-					"rules": { "required": true },
+					"rules": { "required": true, "valueAsNumber": true },
 					"watched": true,
 					"min": 1,
 					"max": 15,
@@ -53,11 +53,11 @@
 					"name": "clipGuided",
 					"type": "checkbox",
 					"label": "CLIP Guided - improves coherence with complex prompts, makes it slower (with CLIP Guidance only one image is generated)",
-					"rules": { "required": true }
+					"rules": {}
 				}
 			],
 			"requestSchema": {
-				"url": "https://hf.space/embed/multimodalart/latentdiffusion/+/api/predict/",
+				"url": "https://hf.space/embed/multimodalart/diffusion/+/api/predict/",
 				"method": "POST",
 				"body": {
 					"data": ["prompt", "steps", "imgCount", "weight", "clipGuided"]
@@ -65,8 +65,8 @@
 				"headers": { "Content-Type": "application/json" }
 			},
 			"responseSchema": {
-				"images": "data.1",
-				"duration": "durations.0"
+				"imagesRespPath": "data.0.1",
+				"durationRespPath": "durations.0"
 			}
 		}
 	},
@@ -90,6 +90,7 @@
 					"type": "text",
 					"label": "Prompt - try adding increments to your prompt or choose it from keywords list",
 					"placeholder": "Matte painting of cyberpunk city",
+					"required": true,
 					"rules": { "required": true }
 				},
 				{
@@ -99,6 +100,7 @@
 					"min": 1,
 					"max": 50,
 					"step": 1,
+					"required": true,
 					"rules": { "required": true, "valueAsNumber": true }
 				},
 				{
@@ -139,6 +141,7 @@
 				}
 			],
 			"requestSchema": {
+				"url": "https://hf.space/embed/multimodalart/latentdiffusion/+/api/predict/",
 				"method": "POST",
 				"body": {
 					"data": [
@@ -153,8 +156,8 @@
 				"headers": { "Content-Type": "application/json" }
 			},
 			"responseSchema": {
-				"duration": "durations.0",
-				"images": "data.1"
+				"imagesRespPath": "data.1",
+				"durationRespPath": "durations.0"
 			}
 		}
 	}

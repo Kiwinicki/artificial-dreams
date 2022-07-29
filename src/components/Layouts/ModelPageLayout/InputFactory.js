@@ -9,9 +9,6 @@ export const InputFactory = ({
 	type = 'text',
 	register,
 	control,
-	watch,
-	watched,
-	label,
 	rules,
 	...props
 }) => {
@@ -47,15 +44,5 @@ export const InputFactory = ({
 		checkbox: <input type="checkbox" {...register(name, rules)} {...props} />,
 	};
 
-	const watchedValue = watch(name);
-
-	return (
-		<label className="flex flex-col gap-1.5">
-			{label && <span>{label}</span>}
-			<div className="flex gap-3">
-				{inputTypes[type] || inputTypes.text}
-				{watched && <span>{watchedValue}</span>}
-			</div>
-		</label>
-	);
+	return inputTypes[type] || inputTypes.text;
 };

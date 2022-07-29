@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useFetch, states } from '../../../hooks/useFetch';
 import { MainLayout } from '../MainLayout';
-import { InputFactory } from './InputFactory';
+import { Form } from './Form';
 import { Spinner } from '../../UI/Spinner';
-import { Button } from '../../UI/Button';
 import { StyledLink } from '../../UI/StyledLink';
-import { filterObject } from '../../../utils';
+import { filterObject, getDynamicObjProp } from '../../../utils';
 
 const ModelPageLayout = ({
 	pageContext: {
@@ -14,12 +12,10 @@ const ModelPageLayout = ({
 			inputs,
 			defaultValues,
 			requestSchema: { url, method, body, headers },
-			responseSchema,
+			responseSchema: { imagesRespPath, durationRespPath },
 		},
-		id,
 		name,
 		key,
-		route,
 	},
 }) => {
 	const newDefaultValues = filterObject(
@@ -32,19 +28,16 @@ const ModelPageLayout = ({
 	const { data, currentFetchState, executeFetch } = useFetch({});
 
 	const onSubmit = (data) => {
-		console.log(data, body);
-		console.log(body.data.map((varName) => data[varName]));
-		setFormData(data);
-		// executeFetch(url, {
-		// 	method,
-		// 	body: [],
-		// 	headers,
-		// });
-	};
+		if (key === 'latent-diffusion') {
+			data.prompt = sanitizePrompt(data.prompt);
+		}
 
-	const onError = (err) => {
-		console.error(err);
-		throw Error(err);
+		setFormData(data);
+		executeFetch(url, {
+			method: method,
+			body: JSON.stringify({ data: body.data.map((varName) => data[varName]) }),
+			headers: { 'Content-Type': headers.Content_Type },
+		});
 	};
 
 	return (
@@ -55,8 +48,8 @@ const ModelPageLayout = ({
 			<div className="flex flex-col md:flex-row p-5 gap-5 max-w-screen-xl justify-center m-auto">
 				<Form
 					onSubmit={onSubmit}
-					onError={onError}
-					inputs={inputs}
+					// onError={onError}
+					inputsArr={inputs}
 					defaultValues={defaultValues}
 					className="flex flex-col gap-4 min-w-[min(400px,100%)]"
 				/>
@@ -80,9 +73,12 @@ const ModelPageLayout = ({
 					)}
 					{currentFetchState === states.loaded && (
 						<>
-							<p>Generated in: {data.avg_durations[0].toFixed(2)} sec</p>
+							<p>
+								Generated in:{' '}
+								{getDynamicObjProp(data, durationRespPath).toFixed(2)} sec
+							</p>
 							<div className="flex flex-wrap gap-5">
-								{data.data[1].map((img, i) => (
+								{getDynamicObjProp(data, imagesRespPath).map((img, i) => (
 									<img
 										src={img}
 										alt={formData.prompt}
@@ -117,40 +113,7 @@ const ModelPageLayout = ({
 
 export default ModelPageLayout;
 
-const onPromptChange = ({ target: { value } }) => {
+const sanitizePrompt = (prompt) => {
 	const matchBackslashes = /[\/]/g;
-	return value.replace(matchBackslashes, '');
-};
-
-const Form = ({ defaultValues, inputs, onSubmit, onError, ...rest }) => {
-	const { handleSubmit, register, control, watch } = useForm({ defaultValues });
-
-	return (
-		<form onSubmit={handleSubmit(onSubmit, onError)} {...rest}>
-			{inputs.map(({ name, type, rules, ...props }) => {
-				const newProps = filterObject(props, ([key, value]) => value !== null);
-
-				return (
-					<InputFactory
-						name={name}
-						type={type}
-						register={register}
-						control={control}
-						rules={rules}
-						watch={watch}
-						{...newProps}
-						key={name}
-					/>
-				);
-			})}
-			<div className="flex py-5 gap-5">
-				<Button type="submit" className="grow">
-					Submit
-				</Button>
-				<Button type="reset" className="grow">
-					Clear
-				</Button>
-			</div>
-		</form>
-	);
+	return prompt.replace(matchBackslashes, ' ').trim();
 };

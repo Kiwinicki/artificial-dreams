@@ -14,7 +14,6 @@ export const InputArrayRange = forwardRef(
 			<div>
 				<input
 					ref={ref}
-					{...rest}
 					onInput={handleInputChange}
 					onChange={(e) => onChange(stepList[parseInt(e.currentTarget.value)])}
 					type="range"
@@ -23,6 +22,7 @@ export const InputArrayRange = forwardRef(
 					value={currentStepIndex}
 					step="1"
 					list="range-list"
+					{...rest}
 				/>
 				<datalist id="range-list">
 					{stepList.map((step, i) => (

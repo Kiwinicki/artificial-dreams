@@ -17,6 +17,7 @@ exports.createPages = async function ({ actions, graphql }) {
 							step
 							stepList
 							watched
+							required
 							rules {
 								required
 								valueAsNumber
@@ -33,8 +34,8 @@ exports.createPages = async function ({ actions, graphql }) {
 							}
 						}
 						responseSchema {
-							duration
-							images
+							durationRespPath
+							imagesRespPath
 						}
 						defaultValues {
 							clipGuided

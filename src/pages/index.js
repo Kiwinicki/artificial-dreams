@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import { MainLayout } from '../components/Layouts/MainLayout';
+import { Layout } from '../components/Layout';
 import { StyledLink } from '../components/UI/StyledLink';
 import { HeroSection } from '../components/HeroSection/HeroSection';
 
@@ -22,7 +22,7 @@ const IndexPage = () => {
 	`);
 
 	return (
-		<MainLayout>
+		<Layout>
 			<HeroSection />
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				{/* <img src={``} alt="" /> TODO: screenshot from working application */}
@@ -59,7 +59,7 @@ const IndexPage = () => {
 					</StyledLink>
 				</p>
 			</section>
-		</MainLayout>
+		</Layout>
 	);
 };
 

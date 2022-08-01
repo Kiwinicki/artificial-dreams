@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { MainLayout } from '../../components/Layouts/MainLayout';
+import { Layout } from '../../components/Layout';
 import { StyledLink } from '../../components/UI/StyledLink';
 
 const CreatePage = () => {
@@ -30,7 +30,7 @@ const CreatePage = () => {
 	`);
 
 	return (
-		<MainLayout>
+		<Layout>
 			<h2 className="text-center text-xl font-semibold">
 				Choose model for your prompts:
 			</h2>
@@ -56,7 +56,7 @@ const CreatePage = () => {
 					</StyledLink>
 				))}
 			</div>
-		</MainLayout>
+		</Layout>
 	);
 };
 

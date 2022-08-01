@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useFetch, states } from '../../../hooks/useFetch';
-import { MainLayout } from '../MainLayout';
+import { useFetch, states } from '../../hooks/useFetch';
+import { Layout } from '../../components/Layout';
 import { Form } from './Form';
-import { Spinner } from '../../UI/Spinner';
-import { StyledLink } from '../../UI/StyledLink';
-import { filterObject, getDynamicObjProp } from '../../../utils';
+import { Spinner } from '../../components/UI/Spinner';
+import { StyledLink } from '../../components/UI/StyledLink';
+import { filterObject, getDynamicObjProp } from '../../utils';
 
-const ModelPageLayout = ({
+const ModelPage = ({
 	pageContext: {
 		form: {
 			inputs,
@@ -18,10 +18,7 @@ const ModelPageLayout = ({
 		key,
 	},
 }) => {
-	const newDefaultValues = filterObject(
-		defaultValues,
-		([key, value]) => value !== null
-	);
+	const newDefaultValues = nonNullableProps(defaultValues);
 
 	const [formData, setFormData] = useState(newDefaultValues);
 
@@ -41,11 +38,12 @@ const ModelPageLayout = ({
 	};
 
 	return (
-		<MainLayout>
+		<Layout>
 			<h2 className="text-2xl text-center px-5 py-3">
 				Generate images with {name}
 			</h2>
 			<div className="flex flex-col md:flex-row p-5 gap-5 max-w-screen-xl justify-center m-auto">
+				{console.log(inputs)}
 				<Form
 					onSubmit={onSubmit}
 					// onError={onError}
@@ -78,14 +76,22 @@ const ModelPageLayout = ({
 								{getDynamicObjProp(data, durationRespPath).toFixed(2)} sec
 							</p>
 							<div className="flex flex-wrap gap-5">
-								{getDynamicObjProp(data, imagesRespPath).map((img, i) => (
+								{Array.isArray(getDynamicObjProp(data, imagesRespPath)) ? (
+									getDynamicObjProp(data, imagesRespPath).map((img, i) => (
+										<img
+											src={img}
+											alt={formData.prompt}
+											className="w-64 border-2 border-on-background"
+											key={i}
+										/>
+									))
+								) : (
 									<img
-										src={img}
+										src={data.img}
 										alt={formData.prompt}
 										className="w-64 border-2 border-on-background"
-										key={i}
 									/>
-								))}
+								)}
 							</div>
 							<p>
 								You liked the result, but it has a low resolution? Enhance it
@@ -107,13 +113,16 @@ const ModelPageLayout = ({
 				on Hugging Face. Check his{' '}
 				<StyledLink to="https://multimodal.art/">site</StyledLink> too.
 			</p>
-		</MainLayout>
+		</Layout>
 	);
 };
 
-export default ModelPageLayout;
+export default ModelPage;
 
 const sanitizePrompt = (prompt) => {
 	const matchBackslashes = /[\/]/g;
 	return prompt.replace(matchBackslashes, ' ').trim();
 };
+
+const nonNullableProps = (props) =>
+	filterObject(props, ([key, value]) => value !== null);

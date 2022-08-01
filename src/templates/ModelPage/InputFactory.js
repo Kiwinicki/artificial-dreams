@@ -1,8 +1,9 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Input } from '../../UI/Input';
-import { InputRange } from '../../UI/InputRange';
-import { InputArrayRange } from '../../UI/InputArrayRange';
+import { Input } from '../../components/UI/Input';
+import { InputRange } from '../../components/UI/InputRange';
+import { InputArrayRange } from '../../components/UI/InputArrayRange';
+import { Select } from '../../components/UI/Select';
 
 export const InputFactory = ({
 	name,
@@ -10,6 +11,7 @@ export const InputFactory = ({
 	register,
 	control,
 	rules,
+	options,
 	...props
 }) => {
 	const inputTypes = {
@@ -42,6 +44,15 @@ export const InputFactory = ({
 			/>
 		),
 		checkbox: <input type="checkbox" {...register(name, rules)} {...props} />,
+		select: (
+			<Select
+				name={name}
+				register={register}
+				rules={rules}
+				optionsList={options}
+				{...props}
+			/>
+		),
 	};
 
 	return inputTypes[type] || inputTypes.text;

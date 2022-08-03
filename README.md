@@ -1,15 +1,15 @@
 # TODO:
 
-- [ ] add screenshot image from working application on IndexPage
+- [ ] add screenshot image from working application on home page
 - [ ] users, accounts and auth (redux/firebase)
-- [ ] `/create` route and all generation models
-- [ ] one API for all generation models
+- [x] `/create` route and all generation models
 - [ ] 404 page
 - [ ] input range styles
 - [ ] keywords list (firebase?)
-- [ ] lightbox
-- [ ] downloading images
-- [ ] add error boundary
+- [x] lightbox
+- [x] downloading images
+- [ ] error boundary
+- [ ] translation
 
 ## 🚀 Quick start
 

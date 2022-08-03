@@ -5,6 +5,7 @@ import { Form } from './Form';
 import { Spinner } from '../../components/UI/Spinner';
 import { StyledLink } from '../../components/UI/StyledLink';
 import { filterObject, getDynamicObjProp } from '../../utils';
+import { Lightbox } from '../../components/Lightbox';
 
 const ModelPage = ({
 	pageContext: {
@@ -43,7 +44,6 @@ const ModelPage = ({
 				Generate images with {name}
 			</h2>
 			<div className="flex flex-col md:flex-row p-5 gap-5 max-w-screen-xl justify-center m-auto">
-				{console.log(inputs)}
 				<Form
 					onSubmit={onSubmit}
 					// onError={onError}
@@ -76,22 +76,11 @@ const ModelPage = ({
 								{getDynamicObjProp(data, durationRespPath).toFixed(2)} sec
 							</p>
 							<div className="flex flex-wrap gap-5">
-								{Array.isArray(getDynamicObjProp(data, imagesRespPath)) ? (
-									getDynamicObjProp(data, imagesRespPath).map((img, i) => (
-										<img
-											src={img}
-											alt={formData.prompt}
-											className="w-64 border-2 border-on-background"
-											key={i}
-										/>
-									))
-								) : (
-									<img
-										src={data.img}
-										alt={formData.prompt}
-										className="w-64 border-2 border-on-background"
-									/>
-								)}
+								<Lightbox
+									images={getDynamicObjProp(data, imagesRespPath).map(
+										(src, i) => ({ src, alt: `${formData.prompt} - ${i + 1}` })
+									)}
+								/>
 							</div>
 							<p>
 								You liked the result, but it has a low resolution? Enhance it

@@ -30,6 +30,10 @@ const ModelPage = ({
 			data.prompt = sanitizePrompt(data.prompt);
 		}
 
+		if (key === 'v-diffusion' && data.clipGuided) {
+			data.imgCount = 1;
+		}
+
 		setFormData(data);
 		executeFetch(url, {
 			method: method,

@@ -22,7 +22,7 @@ export const SlidingMenu = ({ isMenuOpen, toggleMenu }) => {
 				<nav className="flex flex-col h-screen">
 					<ButtonLink to="/">Home</ButtonLink>
 					<ButtonLink to="/create">Create</ButtonLink>
-					<ButtonLink to="tips">Tips</ButtonLink>
+					<ButtonLink to="/tips">Tips</ButtonLink>
 				</nav>
 			</OutsideClickHandler>
 		</div>

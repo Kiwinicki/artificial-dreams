@@ -42,6 +42,7 @@ const CreatePage = () => {
 							image={bgImg.childImageSharp.gatsbyImageData}
 							alt=""
 							className={imgClasses}
+							style={{ position: 'absolute' }} // overriding GatsbyImage classes
 						/>
 					</Link>
 				))}
@@ -65,6 +66,6 @@ export default CreatePage;
 const linkClasess =
 	'flex justify-center items-center aspect-square border-on-background border-2 text-center relative hover:scale-[1.025] duration-150 ease-in-out';
 const imgClasses =
-	'absolute brightness-50 hover:brightness-[0.4] blur-none hover:blur-sm duration-150 ease-in-out w-full aspect-square';
+	'brightness-50 hover:brightness-[0.4] blur-none hover:blur-sm duration-150 ease-in-out w-full aspect-square';
 const pClasses =
 	'font-semibold text-lg z-[1] [&+img]:hover:brightness-[0.4] [&+img]:hover:blur-sm';

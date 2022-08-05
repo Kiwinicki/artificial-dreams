@@ -1,0 +1,1 @@
+{"data":{"allModelsJson":{"nodes":[{"name":"V-Diffusion","route":"/create/v-diffusion","key":"v-diffusion"},{"name":"Latent Diffusion","route":"/create/latent-diffusion","key":"latent-diffusion"},{"name":"VQGAN+CLIP (Hypertron v2)","route":"/create/vqgan","key":"vqgan"}]}}}

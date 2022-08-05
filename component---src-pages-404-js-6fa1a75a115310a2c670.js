@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkartificial_dreams=self.webpackChunkartificial_dreams||[]).push([[883],{429:function(e,t,a){a.r(t);var r=a(7294),n=a(5332);t.default=function(){return r.createElement(n.A,{className:"flex justify-center items-center"},r.createElement("p",{className:"text-lg font-bold"},"Error 404. Page not found"))}}}]);
+//# sourceMappingURL=component---src-pages-404-js-6fa1a75a115310a2c670.js.map

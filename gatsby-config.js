@@ -2,7 +2,7 @@ module.exports = {
 	pathPrefix: '/artificial-dreams',
 	siteMetadata: {
 		title: `Artificial dreams`,
-		siteUrl: `https://www.yourdomain.tld`,
+		siteUrl: `https://kiwinicki.github.io/artificial-dreams/`,
 	},
 	plugins: [
 		'gatsby-plugin-postcss',

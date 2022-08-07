@@ -1,10 +1,14 @@
 module.exports = {
-	pathPrefix: '/artificial-dreams',
+	pathPrefix: `/artificial-dreams`,
 	siteMetadata: {
 		title: `Artificial dreams`,
-		...(process.env.NODE_ENV === 'production' && {
-			siteUrl: `https://kiwinicki.github.io/artificial-dreams/`,
-		}),
+
+		// ...(process.env.NODE_ENV === 'production' && {siteUrl: `https://kiwinicki.github.io/artificial-dreams/`})
+
+		// siteUrl:
+		// 	process.env.NODE_ENV === 'production'
+		// 		? `https://kiwinicki.github.io/artificial-dreams/`
+		// 		: 'https://kiwinicki.github.io/',
 	},
 	plugins: [
 		'gatsby-plugin-postcss',

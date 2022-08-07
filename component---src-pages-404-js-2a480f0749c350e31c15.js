@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkartificial_dreams=self.webpackChunkartificial_dreams||[]).push([[883],{429:function(e,t,a){a.r(t);var n=a(7294);t.default=function(){return n.createElement("main",null,n.createElement("title",null,"Page not found"))}}}]);
-//# sourceMappingURL=component---src-pages-404-js-2a480f0749c350e31c15.js.map

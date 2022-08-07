@@ -42,7 +42,7 @@ const CreatePage = () => {
 							image={bgImg.childImageSharp.gatsbyImageData}
 							alt=""
 							className={imgClasses}
-							// style={{ position: 'absolute' }} // overriding GatsbyImage classes
+							style={{ position: 'absolute' }} // overriding GatsbyImage classes
 						/>
 					</Link>
 				))}

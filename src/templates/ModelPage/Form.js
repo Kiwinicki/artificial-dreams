@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { InputFactory } from './InputFactory';
 import { Button } from '../../components/UI/Button';
-import { filterObject } from '../../utils';
+import { filterObject } from '../../utils/filterObject';
 
 export const Form = ({
 	defaultValues,

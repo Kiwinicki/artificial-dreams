@@ -6,7 +6,10 @@ import { Layout } from '../components/Layout';
 import { StyledLink } from '../components/UI/StyledLink';
 import { HeroSection } from '../components/HeroSection/HeroSection';
 
-const IndexPage = () => {
+import { FormattedMessage } from 'react-intl';
+import { TranslatedLink } from '../components/UI/TranslatedLink';
+
+const IndexPage = ({ pageContext: { language, messages } }) => {
 	const {
 		allModelsJson: { nodes },
 	} = useStaticQuery(graphql`
@@ -22,7 +25,7 @@ const IndexPage = () => {
 	`);
 
 	return (
-		<Layout>
+		<Layout language={language} messages={messages}>
 			<HeroSection />
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				{/* <img src={``} alt="" /> TODO: screenshot from working application */}

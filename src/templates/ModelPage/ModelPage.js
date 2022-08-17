@@ -4,7 +4,8 @@ import { Layout } from '../../components/Layout';
 import { Form } from './Form';
 import { Spinner } from '../../components/UI/Spinner';
 import { StyledLink } from '../../components/UI/StyledLink';
-import { filterObject, getDynamicObjProp } from '../../utils';
+import { filterObject } from '../../utils/filterObject';
+import { getDynamicObjProp } from '../../utils/getDynamicObjProp';
 import { Lightbox } from '../../components/Lightbox';
 
 const ModelPage = ({

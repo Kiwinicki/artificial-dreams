@@ -1,0 +1,12 @@
+{
+	"en": {
+		"nav-home": "Home",
+		"nav-create": "Create",
+		"nav-tips": "Tips"
+	},
+	"pl": {
+		"nav-home": "Strona główna",
+		"nav-create": "Twórz",
+		"nav-tips": "Porady"
+	}
+}

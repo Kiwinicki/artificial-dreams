@@ -1,3 +1,6 @@
+const messages = require('./src/i18n/translations/shared.json');
+const { languages, defaultLanguage } = require('./src/i18n/i18n');
+
 exports.createPages = async function ({ actions, graphql }) {
 	const { data } = await graphql(`
 		{
@@ -71,5 +74,34 @@ exports.createPages = async function ({ actions, graphql }) {
 			component: require.resolve(`./src/templates/ModelPage/ModelPage.js`),
 			context: data,
 		});
+	});
+};
+
+exports.onCreatePage = async ({
+	page,
+	actions: { createPage, deletePage },
+}) => {
+	return new Promise((resolve) => {
+		let path = page.path;
+		deletePage(page);
+		const langKeys = Object.keys(languages);
+
+		for (let lang of langKeys) {
+			const isDefaultLang = lang === defaultLanguage;
+			if (!isDefaultLang) {
+				path = '/' + lang + page.path;
+			}
+
+			const pageForLanguage = Object.assign({}, page, {
+				originalPath: page.path,
+				path: path,
+				context: {
+					language: lang,
+					messages: messages[lang],
+				},
+			});
+			createPage(pageForLanguage);
+		}
+		resolve();
 	});
 };

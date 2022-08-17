@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { TranslatedLink } from '../UI/TranslatedLink';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 export const SlidingMenu = ({ isMenuOpen, toggleMenu }) => {
@@ -48,11 +48,11 @@ const CloseIcon = () => (
 
 const ButtonLink = ({ to, children }) => {
 	return (
-		<Link
+		<TranslatedLink
 			to={to}
 			className="w-full text-2xl px-5 py-4 font-semibold text-on-background hover:bg-surface duration-200 ease-in-out"
 		>
 			{children}
-		</Link>
+		</TranslatedLink>
 	);
 };

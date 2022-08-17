@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import { Layout } from '../../components/Layout';
 import { StyledLink } from '../../components/UI/StyledLink';
 
-const CreatePage = () => {
+const CreatePage = ({ pageContext: { language, messages } }) => {
 	const { allModelsJson, allModelsLinksJson } = useStaticQuery(graphql`
 		{
 			allModelsLinksJson {
@@ -30,7 +30,7 @@ const CreatePage = () => {
 	`);
 
 	return (
-		<Layout>
+		<Layout language={language} messages={messages}>
 			<h2 className="text-center text-xl font-semibold">
 				Choose model for your prompts:
 			</h2>

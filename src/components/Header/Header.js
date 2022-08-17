@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react';
-import { Link } from 'gatsby';
+import React from 'react';
 import { siteMetadata } from '../../../gatsby-config';
 import { LogoLink } from '../UI/LogoLink';
 import { SlidingMenu } from './SlidingMenu';
 import { useToggle } from '../../hooks/useToggle';
-
-// const GoogleTranslate = () => {
-// 	useEffect(() => {
-// 		// in some cases, the google translate script adds a style to the opening html tag.
-// 		// this added style disables scrolling.
-// 		// the next 3 lines removes this added style in order to re-enable scrolling.
-// 		if (window.document.scrollingElement.hasAttribute('style')) {
-// 			window.document.scrollingElement.setAttribute('style', '');
-// 		}
-// 	});
-
-// 	return <div id="google_translate_element"></div>;
-// };
-
-// export default GoogleTranslate;
+import { TranslatedLink } from '../UI/TranslatedLink';
+import { FormattedMessage } from 'react-intl';
+import { LanguageMenu } from './LanguageMenu';
 
 export const Header = () => {
 	const [isMenuOpen, toggleMenu] = useToggle(false);
@@ -36,27 +23,34 @@ export const Header = () => {
 			</button>
 			{/* bigger screens */}
 			<nav className="hidden sm:flex gap-16 justify-self-center">
-				<HeaderLink to="/">Home</HeaderLink>
-				<HeaderLink to="/create">Create</HeaderLink>
-				<HeaderLink to="/tips">Tips</HeaderLink>
+				<HeaderLink to="/">
+					<FormattedMessage id="nav-home" defaultMessage="Home" />
+				</HeaderLink>
+				<HeaderLink to="/create">
+					<FormattedMessage id="nav-create" defaultMessage="Create" />
+				</HeaderLink>
+				<HeaderLink to="/tips">
+					<FormattedMessage id="nav-tips" defaultMessage="Tips" />
+				</HeaderLink>
 			</nav>
+			<LanguageMenu />
 		</header>
 	);
 };
 
 const HeaderLink = ({ to, children }) => (
-	<Link
+	<TranslatedLink
 		to={to}
-		className="text-xl text-white after:block after:w-0 after:h-[2px] after:bg-white after:hover:w-full duration-150 after:duration-150"
+		className="text-xl text-white after:block after:w-0 after:h-[2px] after:bg-white after:hover:w-full duration-150 after:duration-150 w-min xl:w-max"
 	>
 		{children}
-	</Link>
+	</TranslatedLink>
 );
 
 const MenuIcon = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		className="h-10 w-10"
+		className="h-8 w-8"
 		fill="none"
 		viewBox="0 0 24 24"
 		stroke="currentColor"

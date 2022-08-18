@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { Location } from '@reach/router';
+import { removeLangFromPath } from '../../utils/removeLangFromPath';
 import { languages, defaultLanguage } from '../../i18n/i18n';
 import { useToggle } from '../../hooks/useToggle';
 import { Button } from '../UI/Button';
 import { TranslatedLink } from '../UI/TranslatedLink';
-import { removeLangFromPath } from '../../utils/removeLangFromPath';
-import { Location } from '@reach/router';
 
 export const LanguageMenu = () => {
 	const [isMenuOpen, toggleMenu] = useToggle();

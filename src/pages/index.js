@@ -8,6 +8,7 @@ import { HeroSection } from '../components/HeroSection/HeroSection';
 
 import { FormattedMessage } from 'react-intl';
 import { TranslatedLink } from '../components/UI/TranslatedLink';
+import pageMessages from '../i18n/translations/index.json';
 
 const IndexPage = ({ pageContext: { language, messages } }) => {
 	const {
@@ -24,16 +25,22 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 		}
 	`);
 
+	const allMessages = { ...messages, ...pageMessages[language] };
+
 	return (
-		<Layout language={language} messages={messages}>
+		<Layout language={language} messages={allMessages}>
 			<HeroSection />
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
-				{/* <img src={``} alt="" /> TODO: screenshot from working application */}
+				{/* <img src={``} alt="" /> TODO: screenshot from working page */}
 				<div className="w-1/2 h-64 bg-red-500 flex justify-center items-center">
 					placeholder image
 				</div>
-				Create your own artworks and share or print it. You can use different
-				styles and set many other options.
+				<p>
+					<FormattedMessage
+						id="create-and-share"
+						defaultMessage="Create your own artworks and share or print it. You can use different styles and set many other parameters."
+					/>
+				</p>
 			</section>
 			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
 				<div className="flex flex-col gap-2">
@@ -45,20 +52,32 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 				</div>
 				<div className="flex flex-col gap-4">
 					<p>
-						Choose from different models to find the best tool for making your
-						ideas real.
+						<FormattedMessage
+							id="choose-model"
+							defaultMessage="Choose from different models to find the best tool for making your
+						ideas real."
+						/>
 					</p>
 					<p className="flex gap-2">
 						<ArrowLeft />
-						Check out this models!
+						<FormattedMessage
+							id="check-out"
+							defaultMessage="Check out this models!"
+						/>
 					</p>
 				</div>
 			</section>
 			<section>
 				<p className="p-5 text-center">
-					What are you waiting for? Start{' '}
+					<FormattedMessage
+						id="start-creating"
+						defaultMessage="What are you waiting for?"
+					/>{' '}
 					<StyledLink internal to="/create">
-						creating!
+						<FormattedMessage
+							id="start-creating-link"
+							defaultMessage="Start creating!"
+						/>
 					</StyledLink>
 				</p>
 			</section>

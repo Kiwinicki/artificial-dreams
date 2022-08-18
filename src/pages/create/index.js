@@ -50,7 +50,7 @@ const CreatePage = ({ pageContext: { language, messages } }) => {
 			<h2 className="text-center text-xl font-semibold">
 				Links to other external models:
 			</h2>
-			<div className="flex gap-5 p-5">
+			<div className="flex flex-wrap gap-5 p-5">
 				{allModelsLinksJson.nodes.map(({ name, key, url }) => (
 					<StyledLink to={url} target="_blank" key={key}>
 						{name}

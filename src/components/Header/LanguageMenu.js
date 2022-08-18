@@ -4,6 +4,8 @@ import { languages, defaultLanguage } from '../../i18n/i18n';
 import { useToggle } from '../../hooks/useToggle';
 import { Button } from '../UI/Button';
 import { TranslatedLink } from '../UI/TranslatedLink';
+import { removeLangFromPath } from '../../utils/removeLangFromPath';
+import { Location } from '@reach/router';
 
 export const LanguageMenu = () => {
 	const [isMenuOpen, toggleMenu] = useToggle();
@@ -25,19 +27,29 @@ export const LanguageMenu = () => {
 						: 'invisible opacity-0 transiton-[visibility_0s_2s,opacity_2s_linear] transition-opacity'
 				}`}
 			>
-				{Object.keys(languages).map((langKey) => (
-					<li key={langKey} className="mb-0.5">
-						<Button className="w-full">
-							{langKey === defaultLanguage ? (
-								<Link to="/">{languages[langKey].localName}</Link>
-							) : (
-								<TranslatedLink to={`/${langKey}`}>
-									{languages[langKey].localName}
-								</TranslatedLink>
-							)}
-						</Button>
-					</li>
-				))}
+				<Location>
+					{(locationProps) => {
+						const { pathname = '' } = locationProps.location;
+
+						return Object.keys(languages).map((langKey) => (
+							<li key={langKey} className="mb-0.5">
+								<Button className="w-full">
+									{langKey === defaultLanguage ? (
+										<Link to={removeLangFromPath(pathname)}>
+											{languages[langKey].localName}
+										</Link>
+									) : (
+										<TranslatedLink
+											to={`/${langKey}${removeLangFromPath(pathname)}`}
+										>
+											{languages[langKey].localName}
+										</TranslatedLink>
+									)}
+								</Button>
+							</li>
+						));
+					}}
+				</Location>
 			</ul>
 		</div>
 	);

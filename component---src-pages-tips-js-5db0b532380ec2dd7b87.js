@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkartificial_dreams=self.webpackChunkartificial_dreams||[]).push([[262],{9921:function(e,a,n){n.r(a);var s=n(7294),r=n(6243);a.default=function(e){var a=e.pageContext,n=a.language,t=a.messages;return s.createElement(r.A,{language:n,messages:t},"Tips, prompt engineering")}}}]);
+//# sourceMappingURL=component---src-pages-tips-js-5db0b532380ec2dd7b87.js.map

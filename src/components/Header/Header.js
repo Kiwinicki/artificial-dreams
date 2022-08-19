@@ -1,40 +1,44 @@
 import React from 'react';
 import { siteMetadata } from '../../../gatsby-config';
-import { LogoLink } from '../UI/LogoLink';
-import { SlidingMenu } from './SlidingMenu';
 import { useToggle } from '../../hooks/useToggle';
+import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
+import { DesktopLangMenu } from './DesktopLangMenu';
+import { LogoLink } from '../UI/LogoLink';
+import { SlidingMenu } from '../SlidingMenu/SlidingMenu';
 import { TranslatedLink } from '../UI/TranslatedLink';
-import { FormattedMessage } from 'react-intl';
-import { LanguageMenu } from './LanguageMenu';
+import translations from '../../i18n/translations.json';
 
 export const Header = () => {
+	const { locale } = useIntl();
 	const [isMenuOpen, toggleMenu] = useToggle(false);
 
 	return (
-		<header className="relative grid sm:grid-cols-3 grid-flow-col auto-cols-auto p-5 justify-between bg-background">
-			<div>
-				<LogoLink />
-				<h1 className="sr-only">{siteMetadata.title}</h1>
-			</div>
-			{/* smaller screens */}
-			<SlidingMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-			<button onClick={toggleMenu} className="sm:hidden justify-self-end">
-				<MenuIcon />
-			</button>
-			{/* bigger screens */}
-			<nav className="hidden sm:flex gap-16 justify-self-center">
-				<HeaderLink to="/">
-					<FormattedMessage id="nav-home" defaultMessage="Home" />
-				</HeaderLink>
-				<HeaderLink to="/create">
-					<FormattedMessage id="nav-create" defaultMessage="Create" />
-				</HeaderLink>
-				<HeaderLink to="/tips">
-					<FormattedMessage id="nav-tips" defaultMessage="Tips" />
-				</HeaderLink>
-			</nav>
-			<LanguageMenu />
-		</header>
+		<IntlProvider locale={locale} messages={translations[locale].Header}>
+			<header className="relative grid sm:grid-cols-3 grid-flow-col auto-cols-auto p-5 justify-between bg-background">
+				<div>
+					<LogoLink />
+					<h1 className="sr-only">{siteMetadata.title}</h1>
+				</div>
+				{/* smaller screens */}
+				<SlidingMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+				<button onClick={toggleMenu} className="sm:hidden justify-self-end">
+					<MenuIcon />
+				</button>
+				{/* bigger screens */}
+				<nav className="hidden sm:flex gap-16 justify-self-center">
+					<HeaderLink to="/">
+						<FormattedMessage id="nav-home" defaultMessage="Home" />
+					</HeaderLink>
+					<HeaderLink to="/create">
+						<FormattedMessage id="nav-create" defaultMessage="Create" />
+					</HeaderLink>
+					<HeaderLink to="/tips">
+						<FormattedMessage id="nav-tips" defaultMessage="Tips" />
+					</HeaderLink>
+				</nav>
+				<DesktopLangMenu />
+			</header>
+		</IntlProvider>
 	);
 };
 

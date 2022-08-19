@@ -1,0 +1,46 @@
+{
+	"en": {
+		"Header": {
+			"nav-home": "Home",
+			"nav-create": "Create",
+			"nav-tips": "Tips"
+		},
+		"HeroSection": {
+			"generate-images": "Generate your own images with power of AI"
+		},
+		"/": {
+			"create-and-share": "Create your own artworks and share or print it. You can use different styles and set many other parameters.",
+			"choose-model": "Choose from different models to find the best tool for making your ideas real.",
+			"check-out": "Check out this models!",
+			"start-creating": "What are you waiting for?",
+			"start-creating-link": "Start creating!"
+		},
+		"/create/": {
+			"choose-model": "Choose model for your prompts:",
+			"links": "Links to other external models:"
+		},
+		"/tips/": {}
+	},
+	"pl": {
+		"Header": {
+			"nav-home": "Strona główna",
+			"nav-create": "Twórz",
+			"nav-tips": "Porady"
+		},
+		"HeroSection": {
+			"generate-images": "Generuj własne obrazy dzięki mocy AI"
+		},
+		"/": {
+			"create-and-share": "Twórz własne dzieła sztuki i udostępniaj je lub drukuj. Możesz używać różnych stylów i ustawić wiele innych parametrów.",
+			"choose-model": "Wybierz spośród różnych modeli, aby znaleźć najlepsze narzędzie do realizacji swoich pomysłów.",
+			"check-out": "Sprawdź te modele!",
+			"start-creating": "Na co czekasz?",
+			"start-creating-link": "Zacznij tworzyć!"
+		},
+		"/create/": {
+			"choose-model": "Wybierz model dla swoich tekstów:",
+			"links": "Linki do innych zewnętrznych modeli:"
+		},
+		"/tips/": {}
+	}
+}

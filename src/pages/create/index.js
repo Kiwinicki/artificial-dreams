@@ -3,8 +3,9 @@ import { Link, graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { Layout } from '../../components/Layout';
 import { StyledLink } from '../../components/UI/StyledLink';
+import { FormattedMessage } from 'react-intl';
 
-const CreatePage = ({ pageContext: { language, messages } }) => {
+const CreatePage = ({ pageContext: { language, messages, originalPath } }) => {
 	const { allModelsJson, allModelsLinksJson } = useStaticQuery(graphql`
 		{
 			allModelsLinksJson {
@@ -29,10 +30,12 @@ const CreatePage = ({ pageContext: { language, messages } }) => {
 		}
 	`);
 
+	console.log(messages, originalPath);
+
 	return (
 		<Layout language={language} messages={messages}>
 			<h2 className="text-center text-xl font-semibold">
-				Choose model for your prompts:
+				<FormattedMessage id="choose-model" />
 			</h2>
 			<div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 p-5">
 				{allModelsJson.nodes.map(({ route, key, name, bgImg }) => (
@@ -48,7 +51,7 @@ const CreatePage = ({ pageContext: { language, messages } }) => {
 				))}
 			</div>
 			<h2 className="text-center text-xl font-semibold">
-				Links to other external models:
+				<FormattedMessage id="links" />
 			</h2>
 			<div className="flex flex-wrap gap-5 p-5">
 				{allModelsLinksJson.nodes.map(({ name, key, url }) => (
@@ -68,4 +71,4 @@ const linkClasess =
 const imgClasses =
 	'brightness-50 hover:brightness-[0.4] blur-none hover:blur-sm duration-150 ease-in-out w-full aspect-square';
 const pClasses =
-	'font-semibold text-lg z-[1] [&+img]:hover:brightness-[0.4] [&+img]:hover:blur-sm';
+	'font-semibold text-lg z-[1] [&+[data-gatsby-image-wrapper]]:hover:brightness-[0.4] [&+[data-gatsby-image-wrapper]]:hover:blur-sm p-1'; // [data-gatsby-image-wrapper] data attribute comes from GatsbyImage

@@ -1,18 +1,16 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { graphql, useStaticQuery } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { FormattedMessage } from 'react-intl';
 
 import { Layout } from '../components/Layout';
 import { StyledLink } from '../components/UI/StyledLink';
 import { HeroSection } from '../components/HeroSection/HeroSection';
 
-import { FormattedMessage } from 'react-intl';
-import { TranslatedLink } from '../components/UI/TranslatedLink';
-import pageMessages from '../i18n/translations/index.json';
-
 const IndexPage = ({ pageContext: { language, messages } }) => {
 	const {
 		allModelsJson: { nodes },
+		file,
 	} = useStaticQuery(graphql`
 		{
 			allModelsJson {
@@ -22,27 +20,30 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 					key
 				}
 			}
+			file(relativePath: { eq: "working-screenshot.png" }) {
+				childImageSharp {
+					gatsbyImageData(formats: AUTO)
+				}
+			}
 		}
 	`);
 
-	const allMessages = { ...messages, ...pageMessages[language] };
-
 	return (
-		<Layout language={language} messages={allMessages}>
+		<Layout language={language} messages={messages}>
 			<HeroSection />
-			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
-				{/* <img src={``} alt="" /> TODO: screenshot from working page */}
-				<div className="w-1/2 h-64 bg-red-500 flex justify-center items-center">
-					placeholder image
-				</div>
-				<p>
-					<FormattedMessage
-						id="create-and-share"
-						defaultMessage="Create your own artworks and share or print it. You can use different styles and set many other parameters."
-					/>
+			<section className="p-5 flex flex-wrap md:flex-nowrap justify-center gap-5 items-center max-w-screen-xl m-auto">
+				{/* TODO: screenshot from working page */}
+				{console.log(file)}
+				<GatsbyImage
+					image={file.childImageSharp.gatsbyImageData}
+					alt=""
+					className="md:basis-1/2 border-on-background border-2"
+				/>
+				<p className="md:basis-1/2">
+					<FormattedMessage id="create-and-share" />
 				</p>
 			</section>
-			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-lg m-auto">
+			<section className="p-5 flex justify-center gap-5 items-center max-w-screen-xl m-auto">
 				<div className="flex flex-col gap-2">
 					{nodes.map(({ name, route, key }) => (
 						<Link to={route} className={modelClasess} key={key}>
@@ -52,32 +53,19 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 				</div>
 				<div className="flex flex-col gap-4">
 					<p>
-						<FormattedMessage
-							id="choose-model"
-							defaultMessage="Choose from different models to find the best tool for making your
-						ideas real."
-						/>
+						<FormattedMessage id="choose-model" />
 					</p>
 					<p className="flex gap-2">
 						<ArrowLeft />
-						<FormattedMessage
-							id="check-out"
-							defaultMessage="Check out this models!"
-						/>
+						<FormattedMessage id="check-out" />
 					</p>
 				</div>
 			</section>
 			<section>
 				<p className="p-5 text-center">
-					<FormattedMessage
-						id="start-creating"
-						defaultMessage="What are you waiting for?"
-					/>{' '}
+					<FormattedMessage id="start-creating" />{' '}
 					<StyledLink internal to="/create">
-						<FormattedMessage
-							id="start-creating-link"
-							defaultMessage="Start creating!"
-						/>
+						<FormattedMessage id="start-creating-link" />
 					</StyledLink>
 				</p>
 			</section>

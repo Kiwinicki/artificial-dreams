@@ -1,4 +1,4 @@
-const messages = require('./src/i18n/translations/shared.json');
+const messages = require('./src/i18n/translations.json');
 const { languages, defaultLanguage } = require('./src/i18n/i18n');
 
 exports.createPages = async function ({ actions, graphql }) {
@@ -91,13 +91,12 @@ exports.onCreatePage = async ({
 			if (!isDefaultLang) {
 				path = '/' + lang + page.path;
 			}
-
 			const pageForLanguage = Object.assign({}, page, {
-				originalPath: page.path,
 				path: path,
 				context: {
+					originalPath: page.path,
 					language: lang,
-					messages: messages[lang],
+					messages: messages[lang][page.path],
 				},
 			});
 			createPage(pageForLanguage);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { StaticImage } from 'gatsby-plugin-image';
 import { FormattedMessage } from 'react-intl';
 
 import { Layout } from '../components/Layout';
@@ -10,7 +10,6 @@ import { HeroSection } from '../components/HeroSection/HeroSection';
 const IndexPage = ({ pageContext: { language, messages } }) => {
 	const {
 		allModelsJson: { nodes },
-		file,
 	} = useStaticQuery(graphql`
 		{
 			allModelsJson {
@@ -20,11 +19,6 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 					key
 				}
 			}
-			file(relativePath: { eq: "working-screenshot.png" }) {
-				childImageSharp {
-					gatsbyImageData(formats: AUTO)
-				}
-			}
 		}
 	`);
 
@@ -32,11 +26,10 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 		<Layout language={language} messages={messages}>
 			<HeroSection />
 			<section className="p-5 flex flex-wrap md:flex-nowrap justify-center gap-5 items-center max-w-screen-xl m-auto">
-				{/* TODO: screenshot from working page */}
-				{console.log(file)}
-				<GatsbyImage
-					image={file.childImageSharp.gatsbyImageData}
-					alt=""
+				<StaticImage
+					src="../images/working-app-screenshot.png"
+					alt="Screenshot from working app"
+					placeholder="blurred"
 					className="md:basis-1/2 border-on-background border-2"
 				/>
 				<p className="md:basis-1/2">

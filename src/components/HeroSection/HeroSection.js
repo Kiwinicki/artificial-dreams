@@ -7,8 +7,6 @@ import translations from '../../i18n/translations.json';
 export const HeroSection = () => {
 	const { locale } = useIntl();
 
-	// console.log(intl);
-
 	return (
 		<IntlProvider locale={locale} messages={translations[locale].HeroSection}>
 			<section className="relative flex justify-center items-center flex-col h-[85vh] md:h-[75vh] gap-[4rem] p-5 text-center">

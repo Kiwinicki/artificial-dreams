@@ -45,7 +45,7 @@ export const Header = () => {
 const HeaderLink = ({ to, children }) => (
 	<TranslatedLink
 		to={to}
-		className="text-xl text-white after:block after:w-0 after:h-[2px] after:bg-white after:hover:w-full duration-150 after:duration-150 w-min xl:w-max"
+		className="text-xl text-white after:block after:w-0 after:h-[2px] after:bg-white after:hover:w-full duration-150 after:duration-150 w-min xl:w-max text-center"
 	>
 		{children}
 	</TranslatedLink>

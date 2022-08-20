@@ -1,6 +1,6 @@
 import React from 'react';
+import { StaticImage } from 'gatsby-plugin-image';
 import { TranslatedLink } from '../UI/TranslatedLink';
-import heroImage from '../../images/hero-image.png';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import translations from '../../i18n/translations.json';
 
@@ -20,10 +20,11 @@ export const HeroSection = () => {
 					<HeroButton />
 				</div>
 				<div className="w-full h-full absolute top-0 bg-hero-section">
-					<img
-						src={heroImage}
+					<StaticImage
+						src="../../images/hero-image.png"
 						alt=""
-						className="w-full h-full absolute top-0 z-[-1] object-cover brightness-75 after:bg-gradient-to-b after:from-background"
+						placeholder="blurred"
+						className="w-full h-full absolute top-0 left-0 z-[-1] object-cover brightness-75 after:bg-gradient-to-b after:from-background"
 					/>
 				</div>
 			</section>

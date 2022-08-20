@@ -9,7 +9,9 @@
 - [x] lightbox
 - [x] downloading images
 - [ ] error boundary
-- [ ] translation
+- [-] translation
+- [ ] fix bg images on create page (StaticImage if possible?)
+- [ ] fix empty page error on model page
 
 ## 🚀 Quick start
 

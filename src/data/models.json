@@ -159,7 +159,8 @@
 			},
 			"responseSchema": {
 				"imagesRespPath": "data.1",
-				"durationRespPath": "durations.0"
+				"durationRespPath": "durations.0",
+				"errorRespMsgPath": "data.2"
 			}
 		}
 	},

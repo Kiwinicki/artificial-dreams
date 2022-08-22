@@ -48,6 +48,7 @@ exports.createPages = async function ({ actions, graphql }) {
 						responseSchema {
 							durationRespPath
 							imagesRespPath
+							errorRespMsgPath
 						}
 						defaultValues {
 							prompt

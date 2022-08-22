@@ -11,7 +11,7 @@ export const Layout = ({
 	originalPath,
 }) => {
 	return (
-		<PageContext.Provider value={{ originalPath }}>
+		<PageContext.Provider value={{ originalPath: originalPath || '/' }}>
 			<IntlProvider locale={language} messages={messages}>
 				<Header />
 				<main className={`${className} grow`}>{children}</main>

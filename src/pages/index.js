@@ -7,7 +7,7 @@ import { Layout } from '../components/Layout';
 import { StyledLink } from '../components/UI/StyledLink';
 import { HeroSection } from '../components/HeroSection/HeroSection';
 
-const IndexPage = ({ pageContext: { language, messages } }) => {
+const IndexPage = ({ pageContext }) => {
 	const {
 		allModelsJson: { nodes },
 	} = useStaticQuery(graphql`
@@ -23,7 +23,7 @@ const IndexPage = ({ pageContext: { language, messages } }) => {
 	`);
 
 	return (
-		<Layout language={language} messages={messages}>
+		<Layout {...pageContext}>
 			<HeroSection />
 			<section className="p-5 flex flex-wrap md:flex-nowrap justify-center gap-5 items-center max-w-screen-xl m-auto">
 				<StaticImage

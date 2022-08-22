@@ -1,41 +1,16 @@
 import React from 'react';
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Layout } from '../../components/Layout';
 import { StyledLink } from '../../components/UI/StyledLink';
 import { FormattedMessage } from 'react-intl';
 
-const CreatePage = ({ pageContext: { language, messages, originalPath } }) => {
-	const { allModelsJson, allModelsLinksJson } = useStaticQuery(graphql`
-		{
-			allModelsLinksJson {
-				nodes {
-					key
-					name
-					url
-				}
-			}
-			allModelsJson {
-				nodes {
-					name
-					route
-					key
-					bgImg {
-						childImageSharp {
-							gatsbyImageData(
-								aspectRatio: 1
-								placeholder: BLURRED
-								formats: AUTO
-							)
-						}
-					}
-				}
-			}
-		}
-	`);
-
+const CreatePage = ({
+	pageContext,
+	data: { allModelsJson, allModelsLinksJson },
+}) => {
 	return (
-		<Layout language={language} messages={messages}>
+		<Layout {...pageContext}>
 			<h2 className="text-center text-xl font-semibold">
 				<FormattedMessage id="choose-model" />
 			</h2>
@@ -45,7 +20,6 @@ const CreatePage = ({ pageContext: { language, messages, originalPath } }) => {
 					return (
 						<Link to={route} className={linkClasess} key={key}>
 							<span className={pClasses}>{name}</span>
-							{/* FIXME: images don't appear after build */}
 							<GatsbyImage
 								image={image}
 								alt=""
@@ -71,6 +45,30 @@ const CreatePage = ({ pageContext: { language, messages, originalPath } }) => {
 };
 
 export default CreatePage;
+
+export const pageQuery = graphql`
+	query {
+		allModelsLinksJson {
+			nodes {
+				key
+				name
+				url
+			}
+		}
+		allModelsJson {
+			nodes {
+				name
+				route
+				key
+				bgImg {
+					childImageSharp {
+						gatsbyImageData(aspectRatio: 1, placeholder: BLURRED, formats: AUTO)
+					}
+				}
+			}
+		}
+	}
+`;
 
 const linkClasess =
 	'flex justify-center items-center aspect-square border-on-background border-2 text-center relative hover:scale-[1.025] duration-150 ease-in-out';

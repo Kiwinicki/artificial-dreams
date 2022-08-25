@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Layout } from '../../components/Layout';
 import { StyledLink } from '../../components/UI/StyledLink';
 import { FormattedMessage } from 'react-intl';
+import { TranslatedLink } from '../../components/UI/TranslatedLink';
 
 const CreatePage = ({
 	pageContext,
@@ -18,7 +19,7 @@ const CreatePage = ({
 				{allModelsJson.nodes.map(({ route, key, name, bgImg }) => {
 					const image = getImage(bgImg);
 					return (
-						<Link to={route} className={linkClasess} key={key}>
+						<TranslatedLink to={route} className={linkClasess} key={key}>
 							<span className={pClasses}>{name}</span>
 							<GatsbyImage
 								image={image}
@@ -26,7 +27,7 @@ const CreatePage = ({
 								className={imgClasses}
 								style={{ position: 'absolute' }} // overriding GatsbyImage classes
 							/>
-						</Link>
+						</TranslatedLink>
 					);
 				})}
 			</div>

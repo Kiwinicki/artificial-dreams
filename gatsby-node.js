@@ -70,11 +70,21 @@ exports.createPages = async function ({ actions, graphql }) {
 
 	data.allModelsJson.nodes.forEach((data) => {
 		const route = data.route;
-		actions.createPage({
-			path: route,
-			component: require.resolve(`./src/templates/ModelPage/ModelPage.js`),
-			context: data,
-		});
+		for (const langKey of Object.keys(languages)) {
+			if (langKey === defaultLanguage) {
+				actions.createPage({
+					path: route,
+					component: require.resolve(`./src/templates/ModelPage/ModelPage.js`),
+					context: data,
+				});
+			} else {
+				actions.createPage({
+					path: `${langKey}${route}`,
+					component: require.resolve(`./src/templates/ModelPage/ModelPage.js`),
+					context: data,
+				});
+			}
+		}
 	});
 };
 

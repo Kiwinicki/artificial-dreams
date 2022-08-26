@@ -1,6 +1,12 @@
+# Technologies used in project:
+
+- Gatsby - static site generator
+- Tailwind CSS - utility-first CSS framework
+- react-intl - package for internalization
+
 # TODO:
 
-- [ ] add screenshot image from working application on home page
+- [x] add screenshot image from working application on home page
 - [ ] users, accounts and auth (redux/firebase)
 - [x] `/create` route and all generation models
 - [ ] 404 page
@@ -11,7 +17,7 @@
 - [ ] error boundary
 - [-] translation
 - [x] fix bg images on create page (StaticImage if possible?)
-- [ ] fix empty page error on model page
+- [x] fix empty page error on model page
 
 ## 🚀 Quick start
 

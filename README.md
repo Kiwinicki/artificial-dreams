@@ -1,3 +1,5 @@
+# Now any generator don't work because all APIs are unavailable (Hugging Face spaces)
+
 # Technologies used in project:
 
 - Gatsby - static site generator
